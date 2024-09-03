@@ -1,0 +1,20 @@
+# Imagen base
+FROM golang:1.20-alpine
+
+# Directorio de trabajo
+WORKDIR /app
+
+# Copiar módulos Go
+COPY go.mod go.sum ./
+
+# Descargar dependencias
+RUN go mod download
+
+# Copiar el resto del código
+COPY . .
+
+# Compilar la aplicación
+RUN go build -o bot main.go
+
+# Comando para ejecutar la aplicación
+CMD ["./bot"]
